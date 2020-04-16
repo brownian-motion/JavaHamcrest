@@ -8,8 +8,8 @@ import org.junit.Test;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-import static org.hamcrest.visibility.IsPackageProtected.isPackageProtected;
-import static org.hamcrest.visibility.IsPrivate.isPrivate;
+import static org.hamcrest.visibility.VisibilityMatchers.isPackageProtected;
+import static org.hamcrest.visibility.VisibilityMatchers.isPublic;
 
 @SuppressWarnings("unused")
 public class IsPackageProtectedTest extends AbstractMatcherTest
@@ -17,6 +17,12 @@ public class IsPackageProtectedTest extends AbstractMatcherTest
     @Override protected Matcher<?> createMatcher()
     {
         return isPackageProtected();
+    }
+
+    @Test
+    public void test_packageExposesPublicFactoryMethod() throws NoSuchMethodException
+    {
+        assertMatches(isPublic(), VisibilityMatchers.class.getMethod("isPackageProtected"));
     }
 
     @Test

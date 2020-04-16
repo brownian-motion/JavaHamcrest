@@ -8,8 +8,7 @@ import org.junit.Test;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-import static org.hamcrest.visibility.IsPrivate.isPrivate;
-import static org.hamcrest.visibility.IsPublic.isPublic;
+import static org.hamcrest.visibility.VisibilityMatchers.isPublic;
 
 @SuppressWarnings("unused")
 public class IsPublicTest extends AbstractMatcherTest
@@ -17,6 +16,13 @@ public class IsPublicTest extends AbstractMatcherTest
     @Override protected Matcher<?> createMatcher()
     {
         return isPublic();
+    }
+
+    @Test
+    public void test_packageExposesPublicFactoryMethod() throws NoSuchMethodException
+    {
+        assertMatches(isPublic(), VisibilityMatchers.class);
+        assertMatches(isPublic(), VisibilityMatchers.class.getMethod("isPublic"));
     }
 
     @Test
@@ -77,14 +83,16 @@ public class IsPublicTest extends AbstractMatcherTest
     }
 
     @Test
-    public void test_isPublic_doesNotMatchNull(){
+    public void test_isPublic_doesNotMatchNull()
+    {
         assertDoesNotMatch(isPublic(), null);
 
         assertMismatchDescription("was null", isPublic(), null);
     }
 
     @Test
-    public void test_isPublic_doesNotMatchNonReflectiveElement(){
+    public void test_isPublic_doesNotMatchNonReflectiveElement()
+    {
         assertDoesNotMatch(isPublic(), new Object());
 
         assertMismatchDescription("was java.lang.Object instead of a reflective element like a Class<T>, Constructor<T>, or Method", isPublic(), new Object());
@@ -114,10 +122,22 @@ public class IsPublicTest extends AbstractMatcherTest
         private Void privateField;
     }
 
-    private static class ExampleMethods{
-        public void publicMethod(){}
-        protected void protectedMethod(){}
-        void packageProtectedMethod(){}
-        private void privateMethod(){}
+    private static class ExampleMethods
+    {
+        public void publicMethod()
+        {
+        }
+
+        protected void protectedMethod()
+        {
+        }
+
+        void packageProtectedMethod()
+        {
+        }
+
+        private void privateMethod()
+        {
+        }
     }
 }
