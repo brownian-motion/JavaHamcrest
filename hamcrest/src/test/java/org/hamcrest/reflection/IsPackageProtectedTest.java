@@ -1,4 +1,4 @@
-package org.hamcrest.visibility;
+package org.hamcrest.reflection;
 
 
 import org.hamcrest.AbstractMatcherTest;
@@ -8,8 +8,8 @@ import org.junit.Test;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-import static org.hamcrest.visibility.VisibilityMatchers.isPackageProtected;
-import static org.hamcrest.visibility.VisibilityMatchers.isPublic;
+import static org.hamcrest.reflection.VisibilityMatchers.isPackageProtected;
+import static org.hamcrest.reflection.VisibilityMatchers.isPublic;
 
 @SuppressWarnings("unused")
 public class IsPackageProtectedTest extends AbstractMatcherTest
